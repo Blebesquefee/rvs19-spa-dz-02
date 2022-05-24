@@ -26,6 +26,7 @@ int main()
                 window.close();
         }
 
+        usleep(delay);
         window.clear();
         game.updateGeneration();
         game.drawCells();
