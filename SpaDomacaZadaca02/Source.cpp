@@ -1,24 +1,36 @@
-#include <SFML/Graphics.hpp>
+#include "GoL.h"
+#include <iostream>
+#include <unistd.h>
+
+using namespace std;
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Hello, SFML world!");
-	window.setFramerateLimit(60);
-	//Cvijet cvijet(&window);
+    srand(time(0));
 
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
+    RenderWindow window(sf::VideoMode(720, 720), "Conway's Game of Life", sf::Style::Titlebar | sf::Style::Close);
+    GoL game;
 
-		window.clear();
-		//cvijet.draw();
-		window.display();
-	}
+    const int delay = 1000000 * game.generationUpdateInterval;
 
-	return 0;
+    game.create(&window);
+    game.generateGrid();
+    game.drawCells();
+
+    while (window.isOpen())
+    {
+        Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == Event::Closed)
+                window.close();
+        }
+
+        window.clear();
+        game.updateGeneration();
+        game.drawCells();
+        window.display();
+    }
+
+    return 0;
 }
