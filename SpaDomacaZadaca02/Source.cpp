@@ -1,6 +1,6 @@
 #include "GoL.h"
 #include <iostream>
-#include <unistd.h>
+#include <chrono>
 
 using namespace std;
 
@@ -8,29 +8,23 @@ int main()
 {
     srand(time(0));
 
-    RenderWindow window(sf::VideoMode(720, 720), "Conway's Game of Life", sf::Style::Titlebar | sf::Style::Close);
     GoL game;
+    string tmp;
 
-    const int delay = 1000000 * game.generationUpdateInterval;
-
-    game.create(&window);
     game.generateGrid();
-    game.drawCells();
 
-    while (window.isOpen())
+    while (true)
     {
-        Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == Event::Closed)
-                window.close();
-        }
-
-        usleep(delay);
-        window.clear();
-        game.updateGeneration();
         game.drawCells();
-        window.display();
+
+        cout << "Press (0) to continue, (1) to quit :";
+        cin >> tmp;
+        cout << "\n";
+
+        if (tmp == "1")
+            break;
+
+        game.updateGeneration();
     }
 
     return 0;

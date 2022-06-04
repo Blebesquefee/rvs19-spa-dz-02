@@ -1,21 +1,11 @@
 #include "Cell.h"
 
-void Cell::create(float posX, float posY, float sizeX, float sizeY, bool alive)
+void Cell::create(int posX, int posY, bool alive)
 {
     x = posX;
     y = posY;
-    height = sizeY;
-    width = sizeX;
-
-    rectangleShape = RectangleShape(Vector2f(width, height));
-    rectangleShape.setPosition(x, y);
-    rectangleShape.setFillColor(alive ? aliveColor : deadColor);
-    rectangleShape.setOutlineThickness(2);
-    rectangleShape.setOutlineColor(Color(0, 0, 0));
+    aliveNeighbors = 0;
+    setAlive(alive);
 }
 
-void Cell::setAlive(bool aliveValue)
-{
-    alive = aliveValue;
-    rectangleShape.setFillColor(alive ? aliveColor : deadColor);
-}
+void Cell::setAlive(bool aliveValue) { alive = aliveValue; }
