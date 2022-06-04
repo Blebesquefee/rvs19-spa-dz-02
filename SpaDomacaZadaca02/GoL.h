@@ -1,22 +1,18 @@
-#include "Cell.h"
+#pragma once
 
 class GoL
 {
 private:
-    Cell cells[40][20];
-
-    int nbr_row;
-    int nbr_col;
-    int wave;
+    static const int nbr_row = 20;
+    static const int nbr_col = 40;
+    int wave = 0;
+    bool cells[nbr_row][nbr_col];
 
     bool generate_alive();
     bool test_aliveNeighbor(int i, int j, int x, int y);
-    bool rule0(Cell tmp);
-    bool rule1(Cell tmp);
-    void test_for_generation(int row, int col);
+    int test_for_generation(int row, int col);
 
 public:
-    GoL();
     void generateGrid();
     void updateGeneration();
     void drawCells();
